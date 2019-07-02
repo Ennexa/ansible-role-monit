@@ -7,7 +7,9 @@
 
 - name: web - create self signed certificate
   include: certificate.yml
-  when: stat_result is defined and stat_result.stat.exists == False
+  when:
+   - stat_result is not skipped
+   - stat_result.stat.exists == False
 
 - name: web - Setup webinterface
   template:
